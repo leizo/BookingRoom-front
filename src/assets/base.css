@@ -1,0 +1,40 @@
+
+/* Color palette */
+:root{
+  --br-darkblue: #192040;
+  --br-darkblue-soft: #292E56;
+  --br-darkblue-mute: #363C70;
+
+  --br-orange: #F59300;
+
+  --br-red: #DE572C;
+
+  --br-text-light-1: #FFFFFF;
+  --br-text-light-2: #8F94C3;
+
+}
+
+:root {
+  --color-background: var(--br-darkblue);
+  --color-background-soft: var(--br-darkblue-soft);
+  --color-background-mute: var(--br-darkblue-mute);
+
+  --color-deconnexion: var(--br-red);
+
+  --color-text: var(--br-text-light-1);
+}
+
+
+body {
+  color: var(--color-text);
+  background: var(--color-background);
+  transition: background-color 0.5s;
+
+  font-family: Montserrat, Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+  Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20px;
+  text-rendering: optimizeLegibility;
+}
