@@ -3,6 +3,7 @@ import Login from "@/views/Login.vue";
 import Signup from "@/views/Signup.vue";
 import Home from "@/views/Home.vue";
 import Logout from "@/views/Logout.vue";
+import Profile from "@/views/Profile.vue";
 import AuthService from "@/services/auth.service";
 import { useUserStore } from "@/stores/user.store";
 
@@ -32,6 +33,13 @@ const routes = [
         meta: {
             allowAnonymous: true
         }
+    }
+    ,
+    {
+        path: "/profile",
+        name: "Profile",
+        component: Profile,
+    
     }
 ];
 

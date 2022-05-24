@@ -24,7 +24,7 @@ export default {
       <img src="../assets/icons/Profile.svg" alt="FreeRoom"> <br>
       Profil
     </button>
-    <button class="page, deco" to="/logout" tag="button">
+    <button class="page, deco">
       <img src="../assets/icons/Disconnect.svg" alt="FreeRoom"> <br>
       Déconnexion
     </button>
@@ -46,7 +46,6 @@ export default {
 
   text-align: center;
 
-  padding: 40px 10px;
   margin: 30px 0px 30px 30px;
 
   font-size: 12px;
@@ -60,8 +59,7 @@ img{
 .page{
   color: var(--br-orange);
   text-align: center;
-
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 }
 
 .deco {
