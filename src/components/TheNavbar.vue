@@ -66,7 +66,7 @@ img{
   color: var(--color-deconnexion);
 }
 
-button {
+button, a {
   background-color: var(--color-background-soft) ;
   border-style: none;
 
@@ -74,6 +74,10 @@ button {
   font-family: Montserrat,sans-serif;
   font-weight: 500;
   font-size: 12px;
+
+  text-decoration: none;
+
+  cursor: pointer;
 }
 
 </style>

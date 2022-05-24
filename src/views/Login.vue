@@ -1,6 +1,7 @@
 <script lang="ts">
     import TheHeader from "@/components/TheHeader.vue";
-    import AuthService from "../services/auth.service";
+    import { useUserStore } from '@/stores/user.store';
+    import {useRouter} from "vue-router";
 
     export default {
     name: "Login",
@@ -10,19 +11,28 @@
             password: "",
         }
     },
-    mounted() {
-        if(AuthService.isLoggedIn()) {
-            this.$router.push('/');
+    setup() {
+        const user = useUserStore();
+        const router = useRouter();
+
+        async function login(mail: string, password: string) {
+            await user.login(mail, password);
+            router.push("/");
         }
+
+        function getProfile() {
+            user.getProfile();
+        }
+
+        return {
+            user,
+            login,
+            getProfile
+        };
     },
-    methods: {
-        async login() {
-            try {
-                await AuthService.login(this.mail, this.password);
-                this.$router.push('/');
-            } catch(err) {
-                alert("Error");
-            }
+    mounted() {
+        if(this.user.isLoggedIn()) {
+            this.$router.push('/');
         }
     },
     components: {TheHeader}
@@ -41,7 +51,7 @@
             <input type="password" id="PasswordIsep" name="Mot de passe" v-model="password"> <br>
         </div>
 
-        <button v-on:click="login">Connexion</button>
+        <button v-on:click="login(mail, password)">Connexion</button>
 
         <div style="padding-top: 10px; text-decoration: underline">
             <router-link to="/signup">Inscription</router-link>
@@ -75,6 +85,7 @@
     border-style: none;
     border-radius: 10px;
     height: 36px;
+    box-sizing: border-box;
 
     color: var(--br-text-light-1);
     font-family: Montserrat, sans-serif;
@@ -82,6 +93,7 @@
     font-size: 15px;
 
     margin: 10px 0px;
+    padding: 0px 10px;
     }
 
     button {

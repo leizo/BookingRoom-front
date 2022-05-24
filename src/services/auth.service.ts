@@ -4,7 +4,7 @@ import { getCookie } from "@/helper/cookie";
 import type User from "@/model/User";
 
 const REST_ENDPOINT = "https://api.booking-room.fr";
-const LOCAL_REST_ENDPOINT = "http://localhost:8080"
+const LOCAL_REST_ENDPOINT = "http://localhost:8080";
 const AUTH_TOKEN_KEY = "authToken";
 
 export default class AuthService {
@@ -46,7 +46,6 @@ export default class AuthService {
 
     static isLoggedIn(): Boolean {
         let authToken = this.getAuthToken();
-        console.log(authToken);
         return (Boolean(authToken) && !this.isTokenExpired(authToken));
     }
 
