@@ -4,6 +4,8 @@ import Signup from "@/views/Signup.vue";
 import Home from "@/views/Home.vue";
 import Logout from "@/views/Logout.vue";
 import Profile from "@/views/Profile.vue";
+import Request from "@/views/Request.vue";
+
 import { useUserStore } from "@/stores/user.store";
 
 const routes = [
@@ -38,6 +40,16 @@ const routes = [
         path: "/profile",
         name: "Profile",
         component: Profile,
+    
+    }
+    ,
+    {
+        path: "/request",
+        name: "Request",
+        component: Request,
+        meta: {
+            allowAnonymous: true
+        }
     
     }
 ];
