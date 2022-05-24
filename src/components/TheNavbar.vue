@@ -2,7 +2,15 @@
 <script lang="ts">
 
 export default {
-  name: "TheNavbar"
+  name: "TheNavbar",
+  methods: {
+    redirectToDisconnect() {
+      this.$router.push("/logout");
+    },
+    redirectToProfile() {
+      this.$router.push("/profile");
+    }
+  }
 }
 </script>
 
@@ -20,11 +28,11 @@ export default {
       <img src="../assets/icons/Request.svg" alt="FreeRoom"> <br>
       Demandes
     </button>
-    <button class="page">
+    <button class="page" @click="redirectToProfile()">
       <img src="../assets/icons/Profile.svg" alt="FreeRoom"> <br>
       Profil
     </button>
-    <button class="page, deco">
+    <button class="page, deco" @click="redirectToDisconnect()">
       <img src="../assets/icons/Disconnect.svg" alt="FreeRoom"> <br>
       Déconnexion
     </button>

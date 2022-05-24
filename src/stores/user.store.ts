@@ -36,6 +36,15 @@ export const useUserStore = defineStore({
             localStorage.setItem("access_token", this.access_token);
             localStorage.setItem("refresh_token", this.refresh_token);
         },
+        async signup(form: any) {
+            let res = await axios({
+                url: `${LOCAL_REST_ENDPOINT}/user/save`,
+                method: 'POST',
+                data: form
+            })
+
+            Object.assign(this, res.data);
+        },
         async getProfile() {
             let res = await axios({
                 url: `${LOCAL_REST_ENDPOINT}/user/me`,
@@ -53,6 +62,7 @@ export const useUserStore = defineStore({
             this.access_token = stored_access_token !== null ? stored_access_token : "";
             this.refresh_token = stored_refresh_token !== null ? stored_refresh_token : "";
 
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.access_token}`;
 
             if(!this.access_token) {
                 return false;

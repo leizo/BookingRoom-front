@@ -1,34 +1,24 @@
 <script lang="ts">
+import { useUserStore } from '@/stores/user.store';
     import TheHeader from '../components/TheHeader.vue';
-    import User from '../model/User';
-    import AuthService from '../services/auth.service';
+
 
     export default {
     name: "Signup",
+    setup() {
+        const user = useUserStore();
+        return {
+            user
+        }
+    },
     data() {
         return {
-            lastName: "",
-            firstName: "",
-            promo: undefined,
-            studentId: undefined,
-            association: "",
-            email: "",
-            password: ""
+            form: {}
         }
     },
     methods: {
         async signup() {
-            const user = User.Builder
-            .withFirstName(this.firstName)
-            .withLastName(this.lastName)
-            .withStudentId(this.studentId)
-            .withPassword(this.password)
-            .withEmail(this.email)
-            .withPromo(this.promo)
-            .withAssociation(this.association)
-            .build();
-            AuthService.signup(user);
-            AuthService.logout();
+            this.user.signup(this.$data.form);
             this.$router.push('/login')
         }
     },
@@ -42,19 +32,19 @@
         <div class="form" style="display: grid; grid-template-columns: auto auto;">
         <div style="margin-right: 15px">
             <label for="Nom">Nom</label> <br>
-            <input type="text" id="Nom" name="Nom" v-model="lastName"> <br>
+            <input type="text" id="Nom" name="Nom" v-model="form['lastName']"> <br>
         </div>
 
         <div style="margin-left: 15px">
             <label for="Prénom">Prénom</label> <br>
-            <input type="text" id="Prénom" name="Prénom" v-model="firstName"> <br>
+            <input type="text" id="Prénom" name="Prénom" v-model="form['firstName']"> <br>
         </div>
 
         </div>
 
         <div class="form">
         <label for="Promo">Promo</label> <br>
-        <select name="Promo" id="promo-select" v-model="promo">
+        <select name="Promo" id="promo-select" v-model="form['promo']">
             <option value=""></option>
             <option value="I1">I1</option>
             <option value="I2">I2</option>
@@ -68,22 +58,22 @@
 
         <div class="form">
         <label for="Numero">Numéro étudiant</label> <br>
-        <input type="text" id="Numero" name="Numéro étudiant" v-model="studentId"> <br>
+        <input type="text" id="Numero" name="Numéro étudiant" v-model="form['studentId']"> <br>
         </div>
 
         <div class="form">
         <label for="Asso">Association</label> <br>
-        <input type="text" id="Association" name="Association" v-model="association"> <br>
+        <input type="text" id="Association" name="Association" v-model="form['association']"> <br>
         </div>
 
         <div class="form">
         <label for="MailIsep">Mail Isep</label> <br>
-        <input type="text" id="MailIsep" name="Mail Isep" v-model="email"> <br>
+        <input type="text" id="MailIsep" name="Mail Isep" v-model="form['email']"> <br>
         </div>
 
         <div class="form">
         <label for="PasswordIsep">Mot de passe</label> <br>
-        <input type="password" id="PasswordIsep" name="Mot de passe" v-model="password"> <br>
+        <input type="password" id="PasswordIsep" name="Mot de passe" v-model="form['password']"> <br>
         </div>
 
         <button v-on:click="signup">

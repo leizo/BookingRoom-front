@@ -1,11 +1,19 @@
 <script lang="ts">
 export default {
-  name: "TheHeader"
+  name: "TheHeader",
+  methods: {
+    redirectToHome() {
+      this.$router.push("/");
+    }
+  }
 }
 </script>
 
 <template>
-  <div>Booking<a id="room">Room</a> </div>
+    <div>
+      <a @click="redirectToHome">Booking</a>
+      <a id="room" @click="redirectToHome">Room</a>
+    </div>  
 
 </template>
 
@@ -25,6 +33,10 @@ div{
 
 #room {
   color: var(--br-orange);
+}
+
+a {
+  cursor: pointer;
 }
 
 </style>

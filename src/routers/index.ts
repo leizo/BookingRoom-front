@@ -5,7 +5,7 @@ import Home from "@/views/Home.vue";
 import Logout from "@/views/Logout.vue";
 import Profile from "@/views/Profile.vue";
 import Request from "@/views/Request.vue";
-import AuthService from "@/services/auth.service";
+
 import { useUserStore } from "@/stores/user.store";
 
 const routes = [
