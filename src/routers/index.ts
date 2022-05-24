@@ -1,8 +1,10 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Login from "@/views/Login.vue";
 import Signup from "@/views/Signup.vue";
-import Home from "@/views/Home.vue"
+import Home from "@/views/Home.vue";
+import Logout from "@/views/Logout.vue";
 import AuthService from "@/services/auth.service";
+import { useUserStore } from "@/stores/user.store";
 
 const routes = [
     {
@@ -19,9 +21,17 @@ const routes = [
         }
     },
     {
+        path: "/logout",
+        name: "logout",
+        component: Logout
+    },
+    {
         path: "/signup",
         name: "Signup",
         component: Signup,
+        meta: {
+            allowAnonymous: true
+        }
     }
 ];
 
@@ -31,7 +41,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (!to.meta.allowAnonymous && !AuthService.isLoggedIn()) {
+    const user = useUserStore();
+    if (!to.meta.allowAnonymous && !user.isLoggedIn()) {
         next({
             path: '/login',
             query: {

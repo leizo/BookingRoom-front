@@ -36,13 +36,11 @@ export default class User {
 
         public withFirstName(firstName: string) {
             this.firstName = firstName;
-            console.log(this);
             return this;
         }
 
         public withLastName(lastName: string) {
             this.lastName = lastName;
-            console.log(this);
             return this;
         }
 
@@ -72,7 +70,6 @@ export default class User {
         }
 
         public build() : User {
-            console.log(this);
             return new User(this.firstName, this.lastName, this.password, this.email,
                 this.studentId, this.promo, this.association);
         }

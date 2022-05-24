@@ -38,3 +38,13 @@ body {
   line-height: 20px;
   text-rendering: optimizeLegibility;
 }
+
+.wrapper {
+  display: grid;
+  grid-template-columns: min-content auto;
+  height: 100%;
+  }
+
+button, a {
+  cursor: pointer;
+}
