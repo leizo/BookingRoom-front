@@ -1,5 +1,5 @@
 
-<script setup lang="ts">
+<script lang="ts">
 
 export default {
   name: "TheNavbar"
@@ -8,27 +8,24 @@ export default {
 
 <template>
   <div class="navbar">
-
-
-
     <button class="page">
-      <img src="../components/icons/FreeRoom.svg" alt="FreeRoom"> <br>
+      <img src="../assets/icons/FreeRoom.svg" alt="FreeRoom"> <br>
       FreeRoom
     </button>
     <button class="page">
-      <img src="../components/icons/Reservation.svg" alt="FreeRoom"> <br>
+      <img src="../assets/icons/Reservation.svg" alt="FreeRoom"> <br>
       Réservation
     </button>
     <button class="page">
-      <img src="../components/icons/Demandes.svg" alt="FreeRoom"> <br>
+      <img src="../assets/icons/Request.svg" alt="FreeRoom"> <br>
       Demandes
     </button>
     <button class="page">
-      <img src="../components/icons/Profil.svg" alt="FreeRoom"> <br>
+      <img src="../assets/icons/Profile.svg" alt="FreeRoom"> <br>
       Profil
     </button>
     <button class="page, deco">
-      <img src="../components/icons/Deconnexion.svg" alt="FreeRoom"> <br>
+      <img src="../assets/icons/Disconnect.svg" alt="FreeRoom"> <br>
       Déconnexion
     </button>
   </div>
@@ -49,7 +46,6 @@ export default {
 
   text-align: center;
 
-  padding: 40px 10px;
   margin: 30px 0px 30px 30px;
 
   font-size: 12px;
@@ -63,8 +59,7 @@ img{
 .page{
   color: var(--br-orange);
   text-align: center;
-
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 }
 
 .deco {
