@@ -53,6 +53,7 @@ export const useUserStore = defineStore({
             this.access_token = stored_access_token !== null ? stored_access_token : "";
             this.refresh_token = stored_refresh_token !== null ? stored_refresh_token : "";
 
+            axios.defaults.headers.common['Authorization'] = `Bearer ${this.access_token}`;
 
             if(!this.access_token) {
                 return false;
