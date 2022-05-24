@@ -75,6 +75,8 @@ button, a {
   font-weight: 500;
   font-size: 12px;
 
+  padding: 20px ;
+
   text-decoration: none;
 
   cursor: pointer;
