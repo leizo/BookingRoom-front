@@ -9,5 +9,5 @@ import TheNavbar from '@/components/TheNavbar.vue';
 </script>
 
 <template>
-    <h1>RATIO</h1>
+    <h1>CE SITE EST WATI SWAG</h1>
 </template>

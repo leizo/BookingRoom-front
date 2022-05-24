@@ -1,44 +1,44 @@
 <script lang="ts">
+import { useUserStore } from '@/stores/user.store';
     import TheHeader from "../components/TheHeader.vue";
-    import TheNavbar from "../components/TheNavbar.vue";
 
     export default {
     name: "Profil",
-    components: {TheHeader, TheNavbar}
+    setup() {
+      const user = useUserStore();
+      user.getProfile();
+      return {
+        user
+      }
+    },
+    components: {TheHeader}
     }
 </script>
 
 <template>
 
-  <div class="wrapper">
-
     <div>
-      <TheNavbar/>
-    </div>
+      <div id="profile">
+        <strong style="color: white">Prénom :</strong> {{ user.firstName }} <br>
+        <strong style="color: white">Nom :</strong> {{ user.lastName }} <br> <br>
 
-    <div>
-      <div id="deconnexion">
-        <strong style="color: white">Prénom :</strong> {{ prenom }} <br>
-        <strong style="color: white">Nom :</strong> {{ nom }} <br> <br>
+        <strong style="color: white">Mail :</strong> {{ user.email }} <br> <br>
 
-        <strong style="color: white">Mail :</strong> {{ mail }} <br> <br>
+        <strong style="color: white">Promo :</strong> {{ user.promo }} <br>
+        <strong style="color: white">Numéro étudiant :</strong> {{ user.studentId }} <br> <br>
 
-        <strong style="color: white">Promo :</strong> {{ promo }} <br>
-        <strong style="color: white">Numéro étudiant :</strong> {{ numero }} <br> <br>
-
-        <strong style="color: white">Autorisé à réserver pour</strong> {{ asso }}
+        <strong style="color: white">Autorisé à réserver pour</strong> {{ user.association }}
       </div>
 
 
     </div>
 
-  </div>
 
 </template>
 
 <style>
 
-#deconnexion {
+#profile {
   background-color: var(--color-background-soft);
   border-radius: 10px;
 
@@ -49,6 +49,8 @@
   transform: translateY(85%);
 
   color: var(--br-orange);
+
+  text-align: left;
 }
 
 .wrapper {

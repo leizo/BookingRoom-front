@@ -2,11 +2,26 @@
 import axios from 'axios';
   import TheHeader from './components/TheHeader.vue';
   import TheNavbar from '@/components/TheNavbar.vue';
+import { useUserStore } from './stores/user.store';
+
+  
+
 
   export default {
     computed: {
       showNavbar() {
         return !(this.$route.name === "Login" || this.$route.name === "Signup");
+      }
+    },
+    setup() {
+      const userStore = useUserStore();
+      return {
+        userStore
+      }
+    },
+    mounted() {
+      if(this.userStore.isLoggedIn()) {
+        console.log("yes")
       }
     },
     components: {
