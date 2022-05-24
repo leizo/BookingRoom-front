@@ -1,9 +1,21 @@
 <script lang="ts">
     import TheHeader from "@/components/TheHeader.vue";
     import TheNavbar from "@/components/TheNavbar.vue";
+    import {useWeekStore} from "@/stores/week.store";
 
     export default {
         name: "Request",
+        setup() {
+            const week = useWeekStore();
+            return {
+                week
+            }
+        },
+        methods: {
+            onChange(event: any) {
+                this.week.fetchEvents(event.target.value);
+            }
+        },
         components: {TheHeader, TheNavbar}
     }
 </script>
@@ -21,11 +33,11 @@
             Vous cherchez à réserver
         </div>
         <div>
-            <select name="Salle">
+            <select name="Salle" @change="onChange($event)">
             <option value="Salle">Salle</option>
-            <option value="I1">L012</option>
-            <option value="I2">L220</option>
-            <option value="P1">L207</option>
+            <option value="L012">L012</option>
+            <option value="L220">L220</option>
+            <option value="L207">L207</option>
         </select>
         </div>
         <div>
@@ -84,7 +96,7 @@
                     <option value="I2">L220</option>
                     <option value="P1">L207</option>
                 </select>
-                 <select name="Salle" style="font-size: 14px;">
+                <select name="Salle" style="font-size: 14px;">
                     <option value="Salle">Fin</option>
                     <option value="I1">L012</option>
                     <option value="I2">L220</option>

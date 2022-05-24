@@ -9,6 +9,9 @@ export default {
     },
     redirectToProfile() {
       this.$router.push("/profile");
+    },
+    redirectToReservation() {
+      this.$router.push("/reservation")
     }
   }
 }
@@ -20,7 +23,7 @@ export default {
       <img src="../assets/icons/FreeRoom.svg" alt="FreeRoom"> <br>
       FreeRoom
     </button>
-    <button class="page">
+    <button class="page" @click="redirectToReservation()">
       <img src="../assets/icons/Reservation.svg" alt="FreeRoom"> <br>
       Réservation
     </button>

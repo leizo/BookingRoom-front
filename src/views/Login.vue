@@ -30,8 +30,8 @@
             getProfile
         };
     },
-    mounted() {
-        if(this.user.isLoggedIn()) {
+    async mounted() {
+        if(await this.user.isLoggedIn()) {
             this.$router.push('/');
         }
     },

@@ -19,11 +19,6 @@ import { useUserStore } from './stores/user.store';
         userStore
       }
     },
-    mounted() {
-      if(this.userStore.isLoggedIn()) {
-        console.log("yes")
-      }
-    },
     components: {
       TheHeader,
         TheNavbar
