@@ -37,14 +37,42 @@ body {
   font-size: 15px;
   line-height: 20px;
   text-rendering: optimizeLegibility;
+
+  height: 100%;
 }
 
 .wrapper {
-  display: grid;
-  grid-template-columns: min-content auto;
-  height: 100%;
-  }
+  display: grid; 
+
+  grid-template-rows: repeat(10, auto) ;
+  grid-template-columns:  min-content repeat(6, auto);
+
+  margin : 30px;
+  gap: 30px;
+
+  border: solid grey;
+}
 
 button, a {
   cursor: pointer;
+}
+
+.orange {
+  color: var(--br-orange);
+}
+
+#header-container {
+  grid-row-start: 1;
+  grid-column-start: 1;
+
+  grid-row-end: 2;
+  grid-column-end: 8;
+}
+
+#navbar-container {
+  grid-row-start: 2;
+  grid-column-start: 1;
+
+  grid-row-end: 11;
+  grid-column-end: 2;
 }

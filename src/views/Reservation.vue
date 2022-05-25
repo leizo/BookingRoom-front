@@ -1,6 +1,7 @@
 <script lang="ts">
     import TheHeader from "@/components/TheHeader.vue";
     import TheNavbar from "@/components/TheNavbar.vue";
+    import ReservationRecap from "@/components/ReservationRecap.vue";
     import {useWeekStore} from "@/stores/week.store";
 
     export default {
@@ -16,13 +17,11 @@
                 this.week.fetchEvents(event.target.value);
             }
         },
-        components: {TheHeader, TheNavbar}
+        components: {TheHeader, TheNavbar, ReservationRecap}
     }
 </script>
 
 <template>
-
-<div class="wrapper-request">
 
     <div class="wrapper-btn">
         <div class="btn-group">
@@ -85,67 +84,75 @@
 
     <!-- Dans mon stage on utilisait des v-if pour choisir quel div afficher -->
     
-    <div class="wrapper-col">
-        <div class="fond">
-            <h1>Date choisie</h1>
+    <div class="col-1">
+        <h1>Date choisie</h1>
 
-            <div style="display:grid; grid-template-columns: max-content max-content; ">
-                <select name="Salle" style="font-size: 14px; ">
-                    <option value="Salle">Début</option>
-                    <option value="I1">L012</option>
-                    <option value="I2">L220</option>
-                    <option value="P1">L207</option>
-                </select>
-                <select name="Salle" style="font-size: 14px;">
-                    <option value="Salle">Fin</option>
-                    <option value="I1">L012</option>
-                    <option value="I2">L220</option>
-                    <option value="P1">L207</option>
-                </select>
-            </div>
+        <div style="display:grid; grid-template-columns: fit-content fit-content; ">
+            <select name="Salle" style="font-size: 14px; ">
+                <option value="Salle">Début</option>
+                <option value="I1">L012</option>
+                <option value="I2">L220</option>
+                <option value="P1">L207</option>
+            </select>
+            <select name="Salle" style="font-size: 14px;">
+                <option value="Salle">Fin</option>
+                <option value="I1">L012</option>
+                <option value="I2">L220</option>
+                <option value="P1">L207</option>
+            </select>
+        </div>
 
-            <li>Salle dispo</li>
-            <li>Salle dispo</li>
-            <li>Salle dispo</li>
-            
-        </div>
-        <div class="fond">
-            component de recap
-        </div>
-        <div></div>
+        <li>Salle dispo</li>
+        <li>Salle dispo</li>
+        <li>Salle dispo</li>
+        
     </div>
-    
-    
-</div>
+
+    <div class="col-2">
+        <ReservationRecap></ReservationRecap>
+    </div>
 
 </template>
 
 <style>
 
 .wrapper-btn {
+    grid-row-start: 2;
+    grid-column-start: 2;
+
+    grid-row-end: 3;
+    grid-column-end: 8;
+
     display: grid;
+    align-self: center;
     grid-template-columns: max-content auto max-content max-content;
-    grid-gap: 30px;
-    height: min-content;
-    margin: 30px 30px 30px 30px;
+    gap: 30px;
 }
 
-.wrapper-col {
-    display: grid;
-    grid-template-columns: min-content auto auto;
-    grid-gap: 30px;
-    height: 80%;
-    margin: 0 30px;
-}
+.col-1 {
+    grid-row-start: 3;
+    grid-column-start: 2;
 
-.fond {
-    height: 100%;
+    grid-row-end: 11;
+    grid-column-end: 4;
+
     background-color: var(--color-background-soft);
     border-radius: 10px;
 
-    padding: 20px;
-    font-size: 14px;
+    padding: 10px 20px;
+}
 
+.col-2 {
+    grid-row-start: 3;
+    grid-column-start: 4;
+
+    grid-row-end: 11;
+    grid-column-end: 5;
+
+    background-color: var(--color-background-soft);
+    border-radius: 10px;
+
+    padding: 10px 20px;
 }
 
 .search {

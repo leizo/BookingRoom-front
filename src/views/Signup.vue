@@ -28,18 +28,17 @@ import { useUserStore } from '@/stores/user.store';
 
 <template>
 
-    <div id="login">
+    <div id="signup">
         <div class="form" style="display: grid; grid-template-columns: auto auto;">
-        <div style="margin-right: 15px">
-            <label for="Nom">Nom</label> <br>
-            <input type="text" id="Nom" name="Nom" v-model="form['lastName']"> <br>
-        </div>
+            <div style="margin-right: 15px">
+                <label for="Nom">Nom</label> <br>
+                <input type="text" id="Nom" name="Nom" v-model="form['lastName']"> <br>
+            </div>
 
-        <div style="margin-left: 15px">
-            <label for="Prénom">Prénom</label> <br>
-            <input type="text" id="Prénom" name="Prénom" v-model="form['firstName']"> <br>
-        </div>
-
+            <div style="margin-left: 15px">
+                <label for="Prénom">Prénom</label> <br>
+                <input type="text" id="Prénom" name="Prénom" v-model="form['firstName']"> <br>
+            </div>
         </div>
 
         <div class="form">
@@ -56,15 +55,18 @@ import { useUserStore } from '@/stores/user.store';
         </select>
         </div>
 
-        <div class="form">
-        <label for="Numero">Numéro étudiant</label> <br>
-        <input type="text" id="Numero" name="Numéro étudiant" v-model="form['studentId']"> <br>
+        <div class="form" style="display: grid; grid-template-columns: auto auto;">
+            <div class="form"  style="margin-right: 15px">
+            <label for="Numero">Numéro étudiant</label> <br>
+            <input type="text" id="Numero" name="Numéro étudiant" v-model="form['studentId']"> <br>
+            </div>
+
+            <div class="form"  style="margin-left: 15px">
+            <label for="Asso">Association</label> <br>
+            <input type="text" id="Association" name="Association" v-model="form['association']"> <br>
+            </div>
         </div>
 
-        <div class="form">
-        <label for="Asso">Association</label> <br>
-        <input type="text" id="Association" name="Association" v-model="form['association']"> <br>
-        </div>
 
         <div class="form">
         <label for="MailIsep">Mail Isep</label> <br>
@@ -76,7 +78,7 @@ import { useUserStore } from '@/stores/user.store';
         <input type="password" id="PasswordIsep" name="Mot de passe" v-model="form['password']"> <br>
         </div>
 
-        <button v-on:click="signup">
+        <button class="btn-orange" v-on:click="signup">
             Soumettre
         </button>
         <div  style="padding-top: 10px; text-decoration: underline">
@@ -92,22 +94,23 @@ import { useUserStore } from '@/stores/user.store';
 <style>
     @import '../assets/base.css';
 
-    #login {
+    #signup {
+    grid-row-start: 4;
+    grid-column-start: 4;
+
+    grid-row-end: 8;
+    grid-column-end: 6;
+
     background-color: var(--color-background-soft);
     border-radius: 10px;
 
     padding: 40px 70px;
-    margin: auto;
 
-    min-width: fit-content;
-    width: 40%;
     text-align: center;
-
-    transform: translateY(5%);
     }
 
     .form {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     text-align: left;
     }
 

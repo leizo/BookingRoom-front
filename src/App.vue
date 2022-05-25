@@ -4,10 +4,13 @@ import axios from 'axios';
   import TheNavbar from '@/components/TheNavbar.vue';
 import { useUserStore } from './stores/user.store';
 
+import { computed, onMounted, onUnmounted, ref } from "vue"
+
   
 
 
   export default {
+  
     computed: {
       showNavbar() {
         return !(this.$route.name === "Login" || this.$route.name === "Signup");
@@ -24,24 +27,26 @@ import { useUserStore } from './stores/user.store';
         TheNavbar
     }
   }
+  
 </script>
 
 <template>
-  <TheHeader></TheHeader>
   <div class="wrapper">
-      <div id="navbar-container">
-        <the-navbar v-if="showNavbar"/>
-      </div>
-        
-      <router-view />
+
+    <div id="header-container">
+      <TheHeader></TheHeader>
     </div>
+
+    <div id="navbar-container">
+      <the-navbar v-if="showNavbar"/>
+    </div>
+        
+    <router-view />
+  </div>
   
 </template>
 
 <style>
 @import './assets/base.css';
 
-#navbar-container {
-  height: 72vh;
-}
 </style>

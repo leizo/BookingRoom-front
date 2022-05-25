@@ -17,7 +17,6 @@ import { useUserStore } from '@/stores/user.store';
 
 <template>
 
-    <div>
       <div id="profile">
         <strong style="color: white">Prénom :</strong> {{ user.firstName }} <br>
         <strong style="color: white">Nom :</strong> {{ user.lastName }} <br> <br>
@@ -30,33 +29,24 @@ import { useUserStore } from '@/stores/user.store';
         <strong style="color: white">Autorisé à réserver pour</strong> {{ user.association }}
       </div>
 
-
-    </div>
-
-
 </template>
 
 <style>
 
 #profile {
+  grid-row-start: 4;
+  grid-column-start: 4;
+
+  grid-row-end: 8;
+  grid-column-end: 6;
+
   background-color: var(--color-background-soft);
   border-radius: 10px;
 
   padding: 50px 70px;
-  margin: auto;
-  width: 30%;
-
-  transform: translateY(85%);
 
   color: var(--br-orange);
 
   text-align: left;
 }
-
-.wrapper {
-  display: grid;
-  grid-template-columns: min-content auto;
-  height: 100%;
-}
-
 </style>

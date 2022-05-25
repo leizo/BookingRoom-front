@@ -12,7 +12,7 @@ export default {
 <template>
     <div>
       <a @click="redirectToHome">Booking</a>
-      <a id="room" @click="redirectToHome">Room</a>
+      <a class="orange" @click="redirectToHome">Room</a>
     </div>  
 
 </template>
@@ -24,14 +24,13 @@ div{
   background-color: var(--color-background-soft);
   border-radius: 10px;
 
-  margin: 30px 30px 0 30px;
   padding: 15px 30px;
 
   font-weight: 600;
   font-size: 25px;
 }
 
-#room {
+.orange {
   color: var(--br-orange);
 }
 
