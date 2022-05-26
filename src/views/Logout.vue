@@ -15,8 +15,7 @@
         logout() {
             localStorage.removeItem("access_token");
             localStorage.removeItem("refresh_token");
-            this.user.access_token = "";
-            this.user.refresh_token = "";
+            this.user.$reset();
             this.$router.push('/login');
         }
     },
