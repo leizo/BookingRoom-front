@@ -24,11 +24,9 @@
 </script>
 
 <template>
-
-
-        <div>
+  
         <div id="deconnexion">
-            <div class="form">
+            <div style="text-align: center;">
             Voulez-vous vous déconnecter ?
             </div>
 
@@ -37,30 +35,23 @@
             </button>
         </div>
 
-
-        </div>
-
-
 </template>
 
 <style>
-    .header {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    }
 
     #deconnexion {
+    grid-row-start: 4;
+    grid-column-start: 4;
+
+    grid-row-end: 8;
+    grid-column-end: 6;
+    
     background-color: var(--color-background-soft);
     border-radius: 10px;
 
     padding: 50px 70px;
-    margin: auto;
-    width: 30%;
     text-align: center;
 
-    transform: translateY(100%);
 
     }
 

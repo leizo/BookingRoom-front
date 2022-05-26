@@ -51,7 +51,7 @@
             <input type="password" id="PasswordIsep" name="Mot de passe" v-model="password"> <br>
         </div>
 
-        <button v-on:click="login(mail, password)">Connexion</button>
+        <button class="btn-orange" v-on:click="login(mail, password)">Connexion</button>
 
         <div style="padding-top: 10px; text-decoration: underline">
             <router-link to="/signup">Inscription</router-link>
@@ -63,15 +63,19 @@
 
 <style>
     #login {
+    grid-row-start: 4;
+    grid-column-start: 4;
+
+    grid-row-end: 8;
+    grid-column-end: 6;
+
+
     background-color: var(--color-background-soft);
     border-radius: 10px;
 
     padding: 50px 70px;
-    margin: auto;
-    width: 30%;
     text-align: center;
 
-    transform: translateY(50%);
     }
 
     .form {
@@ -96,7 +100,7 @@
     padding: 0px 10px;
     }
 
-    button {
+    .btn-orange {
     background-color: var(--br-orange);
     border-radius: 20px;
     border-style: none;
