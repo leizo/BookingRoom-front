@@ -55,7 +55,7 @@ export const useUserStore = defineStore({
             Object.assign(this, res.data);
         },
 
-        isLoggedIn() {
+        async isLoggedIn() {
             const stored_access_token = localStorage.getItem("access_token");
             const stored_refresh_token = localStorage.getItem("refresh_token");
 
@@ -63,17 +63,33 @@ export const useUserStore = defineStore({
             this.refresh_token = stored_refresh_token !== null ? stored_refresh_token : "";
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${this.access_token}`;
-
+        
             if(!this.access_token) {
                 return false;
             }
 
-            let decodedToken: any = decode(this.access_token);
-            if(!decodedToken.exp) {
+            let decodedAccessToken: any = decode(this.access_token);
+            let decodedRefreshToken: any = decode(this.refresh_token);
+            if(!decodedAccessToken.exp) {
                 return false;
             }
 
-            return decodedToken.exp > Math.floor(Date.now() / 1000);
+            if(decodedRefreshToken.exp > Math.floor(Date.now() / 1000) && decodedAccessToken.exp < Math.floor(Date.now() / 1000)) {
+                let tokens = await axios.get(`${LOCAL_REST_ENDPOINT}/user/token/refresh`, {
+                    headers: {
+                        Authorization: "Bearer " + this.refresh_token
+                    }
+                })
+                this.access_token = tokens.data.access_token;
+                this.refresh_token = tokens.data.refresh_token;
+                decodedAccessToken = decode(this.access_token);
+                axios.defaults.headers.common['Authorization'] = `Bearer ${this.access_token}`;
+                localStorage.setItem("access_token", this.access_token);
+                localStorage.setItem("refresh_token", this.refresh_token);
+                console.log(localStorage.getItem("access_token"));
+            }
+
+            return decodedAccessToken.exp > Math.floor(Date.now() / 1000);
         }
     }
 })

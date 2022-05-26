@@ -4,7 +4,7 @@ import Signup from "@/views/Signup.vue";
 import Home from "@/views/Home.vue";
 import Logout from "@/views/Logout.vue";
 import Profile from "@/views/Profile.vue";
-import Request from "@/views/Request.vue";
+import Request from "@/views/Reservation.vue";
 
 import { useUserStore } from "@/stores/user.store";
 
@@ -44,12 +44,9 @@ const routes = [
     }
     ,
     {
-        path: "/request",
-        name: "Request",
+        path: "/reservation",
+        name: "Reservation",
         component: Request,
-        meta: {
-            allowAnonymous: true
-        }
     
     }
 ];
