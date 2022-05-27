@@ -3,21 +3,39 @@
     import TheNavbar from "@/components/TheNavbar.vue";
     import ReservationRecap from "@/components/ReservationRecap.vue";
     import {useWeekStore} from "@/stores/week.store";
+    import { useReservationStore } from '@/stores/reservation.store';
+    import { ref } from 'vue';
+    import Datepicker from '@vuepic/vue-datepicker';
+    import '@vuepic/vue-datepicker/dist/main.css'
 
     export default {
         name: "Request",
         setup() {
             const week = useWeekStore();
+            const reservationState = useReservationStore();
+            const date = ref();
+
             return {
-                week
+                week,
+                reservationState,
+                date
+            }
+        },
+        mounted() {
+            
+        },
+        watch: {
+            date(date) {
+                this.reservationState.room_availability = this.week.fetchRoomAvailability(this.date);
             }
         },
         methods: {
-            onChange(event: any) {
-                this.week.fetchEvents(event.target.value);
+            async onChange(event: any) {
+                await this.week.fetchEvents(event.target.value);
+                this.reservationState.room = event.target.value;
             }
         },
-        components: {TheHeader, TheNavbar, ReservationRecap}
+        components: {TheHeader, TheNavbar, ReservationRecap, Datepicker}
     }
 </script>
 
@@ -25,18 +43,25 @@
 
     <div class="wrapper-btn">
         <div class="btn-group">
-            <button>NDL</button>
-            <button>NDC</button>
+            <button 
+            @click="this.reservationState.campus = 'NDL'"
+            :class="{active: this.reservationState.campus === 'NDL'}">
+                NDL
+            </button>
+            <button 
+            @click="this.reservationState.campus = 'NDC'"
+            :class="{active: this.reservationState.campus === 'NDC'}">
+                NDC
+            </button>
         </div>
+        <!-- TODO le changement de texte décale les colonnes de la CSS Grid -->
         <div class="search">
-            Vous cherchez à réserver
+            Vous cherchez à réserver la salle {{ this.reservationState.room }} à {{ this.reservationState.campus }}
         </div>
         <div>
-            <select name="Salle" @change="onChange($event)">
-            <option value="Salle">Salle</option>
-            <option value="L012">L012</option>
-            <option value="L220">L220</option>
-            <option value="L207">L207</option>
+            <select name="Salle" @change="onChange($event)" v-model="this.reservationState.room">
+            <option disabled value="" >Salle</option>
+            <option v-for="room in Object.keys(this.reservationState.getRooms)" :key=room> {{room}} </option>
         </select>
         </div>
         <div>
@@ -62,7 +87,7 @@
                     <option value="I2">L220</option>
                     <option value="P1">L207</option>
                 </select>
-                 <select name="Salle" style="font-size: 14px;">
+                <select name="Salle" style="font-size: 14px;">
                     <option value="Salle">Fin</option>
                     <option value="I1">L012</option>
                     <option value="I2">L220</option>
@@ -85,7 +110,7 @@
     <!-- Dans mon stage on utilisait des v-if pour choisir quel div afficher -->
     
     <div class="col-1">
-        <h1>Date choisie</h1>
+        <Datepicker v-model="date" dark @change="computeAvailability()"></Datepicker>
 
         <div style="display:grid; grid-template-columns: fit-content fit-content; ">
             <select name="Salle" style="font-size: 14px; ">
@@ -102,9 +127,9 @@
             </select>
         </div>
 
-        <li>Salle dispo</li>
-        <li>Salle dispo</li>
-        <li>Salle dispo</li>
+        <li v-show="this.reservationState.room !== ''"  v-for="slot in this.reservationState.room_availability" :key="slot">
+            {{slot.start}} -> {{slot.end}}
+        </li>
         
     </div>
 
@@ -167,6 +192,10 @@
     border-radius: 20px;
     width: max-content;
     height: min-content;
+}
+
+.active {
+    border: 3px solid greenyellow;
 }
 
 button, select {

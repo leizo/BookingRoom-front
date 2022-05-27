@@ -4,6 +4,9 @@
 export default {
   name: "TheNavbar",
   methods: {
+    redirectToHomePage() {
+      this.$router.push("/");
+    },
     redirectToDisconnect() {
       this.$router.push("/logout");
     },
@@ -19,7 +22,7 @@ export default {
 
 <template>
   <div class="navbar">
-    <button class="page, freeroom">
+    <button class="page, freeroom" @click="redirectToHomePage()">
       <img src="../assets/icons/FreeRoom.svg" alt="FreeRoom"> <br>
       FreeRoom
     </button>

@@ -1,9 +1,19 @@
 <script lang="ts">
     import TheHeader from "@/components/TheHeader.vue";
 import TheNavbar from '@/components/TheNavbar.vue';
+import { useWeekStore } from '@/stores/week.store';
+import { useReservationStore } from '@/stores/reservation.store';
 
     export default {
         name: "Home",
+        setup() {
+            const week = useWeekStore();
+            const reservationState = useReservationStore();
+            return {
+                week,
+                reservationState
+            }
+        },
         components: {TheHeader, TheNavbar}
     }
 </script>
@@ -15,7 +25,7 @@ import TheNavbar from '@/components/TheNavbar.vue';
             <button>NDC</button>
         </div>
         <div class="search">
-            Salle
+            {{this.reservationState.room}}
         </div>
 
         <div>
@@ -26,7 +36,9 @@ import TheNavbar from '@/components/TheNavbar.vue';
     <div class="monday">
         Lundi <br>
         Date <br>
-        liste les évènements
+        <li v-for="event in this.week.events" :key="event.name">
+            {{event.name}}
+        </li>
     </div>
 
     <div class="tuesday">

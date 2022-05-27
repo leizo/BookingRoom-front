@@ -22,6 +22,9 @@ import { computed, onMounted, onUnmounted, ref } from "vue"
         userStore
       }
     },
+    mounted() {
+      console.log("test");
+    },
     components: {
       TheHeader,
         TheNavbar

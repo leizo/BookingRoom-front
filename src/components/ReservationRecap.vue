@@ -1,7 +1,14 @@
 <script lang="ts">
+import { useReservationStore } from '@/stores/reservation.store'
 
 export default {
-  name: "ReservationRecap",
+    name: "ReservationRecap",
+    setup() {
+        const reservationState = useReservationStore();
+        return {
+            reservationState
+        }
+    }
 }
 </script>
 
@@ -17,9 +24,27 @@ export default {
     <br>
     <div>
         Type de réservation : <br>
-        <button class="btn-reservation" style="background-color:#005FA1">Réunion associative</button> <br>
-        <button class="btn-reservation" style="background-color:#0D7064">Projet de groupe</button> <br>
-        <button class="btn-reservation" style="background-color:#8B3046">Evenement associatif</button> <br>
+        <button 
+            class="btn-reservation"
+            :class="{active: this.reservationState.reservation_type === 'association_meeting'}"
+            style="background-color:#005FA1"
+            @click="this.reservationState.reservation_type = 'association_meeting'">
+                Réunion associative
+        </button> <br>
+        <button 
+            class="btn-reservation"
+            :class="{active: this.reservationState.reservation_type === 'group_project'}"
+            style="background-color:#0D7064"
+            @click="this.reservationState.reservation_type = 'group_project'">
+                Projet de groupe
+        </button> <br>
+        <button 
+            class="btn-reservation"
+            :class="{active: this.reservationState.reservation_type === 'association_event'}"
+            style="background-color:#8B3046"
+            @click="this.reservationState.reservation_type = 'association_event'">
+                Evenement associatif
+        </button> <br>
     </div>
     <br>
     <div>
@@ -42,6 +67,10 @@ export default {
 </template>
 
 <style scoped>
+
+.active {
+    border: 3px solid greenyellow;
+}
 
 .btn-reservation {
     font-size: 14px;

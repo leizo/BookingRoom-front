@@ -56,9 +56,9 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     const user = useUserStore();
-    if (!to.meta.allowAnonymous && !user.isLoggedIn()) {
+    if (!to.meta.allowAnonymous && !(await user.isLoggedIn())) {
         next({
             path: '/login',
             query: {
