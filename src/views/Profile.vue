@@ -1,18 +1,18 @@
 <script lang="ts">
-import { useUserStore } from '@/stores/user.store';
-    import TheHeader from "../components/TheHeader.vue";
+  import { useUserStore } from '@/stores/user.store';
+  import TheHeader from "../components/TheHeader.vue";
 
-    export default {
-    name: "Profil",
-    setup() {
-      const user = useUserStore();
-      user.getProfile();
-      return {
-        user
-      }
-    },
-    components: {TheHeader}
+  export default {
+  name: "Profil",
+  setup() {
+    const user = useUserStore();
+    user.getProfile();
+    return {
+      user
     }
+  },
+  components: {TheHeader}
+  }
 </script>
 
 <template>

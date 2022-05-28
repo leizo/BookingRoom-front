@@ -14,7 +14,10 @@ export default {
       this.$router.push("/profile");
     },
     redirectToReservation() {
-      this.$router.push("/reservation")
+      this.$router.push("/reservation");
+    },
+    redirectToRequest() {
+      this.$router.push("/request");
     }
   }
 }
@@ -26,20 +29,20 @@ export default {
       <img src="../assets/icons/FreeRoom.svg" alt="FreeRoom"> <br>
       FreeRoom
     </button>
-    <button class="page, reservation" @click="redirectToReservation()" >
-      <img src="../assets/icons/Reservation.svg" alt="FreeRoom"> <br>
+    <button class="page, reservation" @click="redirectToReservation()">
+      <img src="../assets/icons/Reservation.svg" alt="Reservation"> <br>
       Réservation
     </button>
-    <button class="page, request">
-      <img src="../assets/icons/Request.svg" alt="FreeRoom"> <br>
+    <button class="page, request"  @click="redirectToRequest()" >
+      <img src="../assets/icons/Request.svg" alt="Request"> <br>
       Demandes
     </button>
     <button class="page, profile" @click="redirectToProfile()">
-      <img src="../assets/icons/Profile.svg" alt="FreeRoom"> <br>
+      <img src="../assets/icons/Profile.svg" alt="Profile"> <br>
       Profil
     </button>
     <button class="page, deco, disconnect" @click="redirectToDisconnect()">
-      <img src="../assets/icons/Disconnect.svg" alt="FreeRoom"> <br>
+      <img src="../assets/icons/Disconnect.svg" alt="Disconnect"> <br>
       Déconnexion
     </button>
   </div>
@@ -83,7 +86,6 @@ img{
   grid-column-end: 2;
 
 }
-
 .reservation {
   grid-row-start: 2;
   grid-column-start: 1;
@@ -91,6 +93,10 @@ img{
   grid-row-end: 3;
   grid-column-end: 2;
 
+}
+
+.reservation.active {
+  border: solid grey;
 }
 
 .request {
@@ -117,6 +123,8 @@ img{
 
   grid-row-end: 10;
   grid-column-end: 2;
+
+  color: var(--color-deconnexion);
 
 }
 

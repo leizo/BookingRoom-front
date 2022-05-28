@@ -10,8 +10,23 @@
   --br-red: #DE572C;
 
   --br-text-light-1: #FFFFFF;
-  --br-text-light-2: #8F94C3;
 
+  --br-positive : #129282;
+  --br-negative : #AF4B63;
+
+  --br-evenement :#8B3046;
+  --br-evenement-light : #AF4B63;
+
+  --br-reunion : #005FA1;
+  --br-reunion-light : #1983CD;
+
+  --br-projet : #0D7064;
+  --br-projet-light : #129282;
+
+  --br-class : #BF7609;
+  --br-class-light : #E99210;
+
+  --br-unselect :rgba(255, 255, 255, 0.5);
 }
 
 :root {
@@ -49,9 +64,10 @@ body {
 
   margin : 30px;
   gap: 30px;
-
-  border: solid grey;
 }
+
+
+
 
 button, a {
   cursor: pointer;
@@ -76,3 +92,61 @@ button, a {
   grid-row-end: 11;
   grid-column-end: 2;
 }
+
+a:link {
+  color : var(--br-orange);
+}
+
+a:visited {
+  color : var(--br-orange);
+}
+
+a:hover {
+  color : var(--br-text-light-1);
+}
+
+.wrapper-btn {
+  grid-row-start: 2;
+  grid-column-start: 2;
+
+  grid-row-end: 3;
+  grid-column-end: 8;
+
+  display: grid;
+  align-self: center;
+  grid-template-columns: max-content auto max-content max-content;
+  gap: 30px;
+}
+
+.btn-group{
+  background-color: var(--color-background-soft);
+  border-radius: 20px;
+  width: max-content;
+  height: min-content;
+}
+
+.btn-campus {
+  margin: 5px;
+}
+
+.btn-campus:hover {
+  background-color: var(--color-background-mute);
+}
+
+.btn-campus.active {
+  background-color: var(--color-background-mute);
+}
+
+.btn-orange {
+  background-color: var(--br-orange);
+  border-radius: 20px;
+  border-style: none;
+  padding: 10px 20px;
+
+  color: var(--br-text-light-1);
+  font-family: Montserrat,sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+
+  margin-top: 30px;
+  }

@@ -54,7 +54,7 @@
         <button class="btn-orange" v-on:click="login(mail, password)">Connexion</button>
 
         <div style="padding-top: 10px; text-decoration: underline">
-            <router-link to="/signup">Inscription</router-link>
+            <router-link to="/signup"><a>Inscription</a></router-link>
         </div>
 
     </div>
@@ -62,6 +62,18 @@
 </template>
 
 <style>
+    a:link {
+        color : var(--br-orange);
+    }
+
+    a:visited {
+        color : var(--br-orange);
+    }
+
+    a:hover {
+        color : var(--br-text-light-1);
+    }
+
     #login {
     grid-row-start: 4;
     grid-column-start: 4;

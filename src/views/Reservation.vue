@@ -9,7 +9,7 @@
     import '@vuepic/vue-datepicker/dist/main.css'
 
     export default {
-        name: "Request",
+        name: "Reservation",
         setup() {
             const week = useWeekStore();
             const reservationState = useReservationStore();
@@ -48,12 +48,12 @@
 
     <div class="wrapper-btn">
         <div class="btn-group">
-            <button 
+            <button  class="btn-campus"
             @click="this.reservationState.campus = 'NDL'"
             :class="{active: this.reservationState.campus === 'NDL'}">
                 NDL
             </button>
-            <button 
+            <button class="btn-campus"
             @click="this.reservationState.campus = 'NDC'"
             :class="{active: this.reservationState.campus === 'NDC'}">
                 NDC
@@ -61,7 +61,7 @@
         </div>
         <!-- TODO le changement de texte décale les colonnes de la CSS Grid -->
         <div class="search">
-            Vous cherchez à réserver la salle {{ this.reservationState.room }} à {{ this.reservationState.campus }}
+            Vous cherchez à réserver la salle <span class="orange">{{ this.reservationState.room }} </span> à <span class="orange">{{ this.reservationState.campus }}</span>
         </div>
         <div>
             <select name="Salle" @change="onChange($event)" v-model="this.reservationState.room">
@@ -115,12 +115,14 @@
     <!-- Dans mon stage on utilisait des v-if pour choisir quel div afficher -->
     
     <div class="col-1">
+        <h1>Choix de la date :</h1>
         <Datepicker v-model="this.date" 
         :enableTimePicker="false"
         @update:modelValue="updateRoomAvailabilityOnDate"
         dark placeholder="Date"></Datepicker>
 
         <div style="display:grid; grid-template-columns: fit-content fit-content; ">
+        <h2>Heure de début :</h2>
             <Datepicker v-model="this.reservationState.starting_date" 
                 minutesIncrement="15" 
                 minutesGridIncrement="15"
@@ -128,6 +130,7 @@
                 timePicker dark
                 placeholder="Début">
             </Datepicker>
+        <h2>Heure de fin :</h2>
             <Datepicker v-model="this.reservationState.ending_date" 
                 minutesIncrement="15" 
                 minutesGridIncrement="15"
@@ -138,6 +141,7 @@
         </div>
 
         <li v-show="this.reservationState.room !== '' && this.reservationState.room_availability.length > 1"  v-for="slot in this.reservationState.room_availability" :key="slot">
+            <h2>Disponibilités : </h2>
             {{slot.start}} -> {{slot.end}}
         </li>
         
@@ -150,19 +154,6 @@
 </template>
 
 <style>
-
-.wrapper-btn {
-    grid-row-start: 2;
-    grid-column-start: 2;
-
-    grid-row-end: 3;
-    grid-column-end: 8;
-
-    display: grid;
-    align-self: center;
-    grid-template-columns: max-content auto max-content max-content;
-    gap: 30px;
-}
 
 .col-1 {
     grid-row-start: 3;
@@ -197,17 +188,6 @@
     padding: 10px;
 }
 
-.btn-group{
-    background-color: var(--color-background-soft);
-    border-radius: 20px;
-    width: max-content;
-    height: min-content;
-}
-
-.active {
-    border: 3px solid greenyellow;
-}
-
 button, select {
     background-color: var(--color-background-soft);
     border-radius: 20px;
@@ -218,6 +198,11 @@ button, select {
 
 h1{
     font-size: 16px;
+}
+
+h2{
+    font-size: 14px;
+    font-weight: 500;
 }
 
 li {

@@ -5,6 +5,7 @@ import Home from "@/views/Home.vue";
 import Logout from "@/views/Logout.vue";
 import Profile from "@/views/Profile.vue";
 import Reservation from "@/views/Reservation.vue";
+import Request from "@/views/Request.vue";
 
 import { useUserStore } from "@/stores/user.store";
 
@@ -12,7 +13,10 @@ const routes = [
     {
         path: "/",
         name: "Home",
-        component: Home
+        component: Home,
+        meta: {
+            allowAnonymous: true
+        }
     },
     {
         path: "/login",
@@ -25,7 +29,10 @@ const routes = [
     {
         path: "/logout",
         name: "logout",
-        component: Logout
+        component: Logout,
+        meta: {
+            allowAnonymous: true
+        }
     },
     {
         path: "/signup",
@@ -40,6 +47,9 @@ const routes = [
         path: "/profile",
         name: "Profile",
         component: Profile,
+        meta: {
+            allowAnonymous: true
+        }
     
     }
     ,
@@ -47,6 +57,18 @@ const routes = [
         path: "/reservation",
         name: "Reservation",
         component: Reservation,
+        meta: {
+            allowAnonymous: true
+        }
+    
+    },
+    {
+        path: "/request",
+        name: "Request",
+        component: Request,
+        meta: {
+            allowAnonymous: true
+        }
     
     },
 ];

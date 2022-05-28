@@ -1,8 +1,10 @@
 <script lang="ts">
     import TheHeader from "@/components/TheHeader.vue";
-import TheNavbar from '@/components/TheNavbar.vue';
-import { useWeekStore } from '@/stores/week.store';
-import { useReservationStore } from '@/stores/reservation.store';
+    import TheNavbar from '@/components/TheNavbar.vue';
+    import { useWeekStore } from '@/stores/week.store';
+    import { useReservationStore } from '@/stores/reservation.store';
+    import Evenement from '../components/Evenement.vue';
+    
 
     export default {
         name: "Home",
@@ -14,15 +16,15 @@ import { useReservationStore } from '@/stores/reservation.store';
                 reservationState
             }
         },
-        components: {TheHeader, TheNavbar}
+        components: { TheHeader, TheNavbar, Evenement }
     }
 </script>
 
 <template>
 <div class="wrapper-btn">
         <div class="btn-group">
-            <button>NDL</button>
-            <button>NDC</button>
+            <button class="btn-campus">NDL</button>
+            <button class="btn-campus">NDC</button>
         </div>
         <div class="search">
             {{this.reservationState.room}}
@@ -35,7 +37,10 @@ import { useReservationStore } from '@/stores/reservation.store';
 
     <div class="monday">
         Lundi <br>
-        Date <br>
+        <span class="orange">30/05</span> <br>
+        <Evenement/>
+        <Evenement/>
+        <Evenement/>
         <li v-for="event in this.week.events" :key="event.name">
             {{event.name}}
         </li>
@@ -43,32 +48,39 @@ import { useReservationStore } from '@/stores/reservation.store';
 
     <div class="tuesday">
         Mardi <br>
-        Date <br>
-        liste les évènements
+        <span class="orange">30/05</span> <br>
+        <Evenement/>
+        <Evenement/>
     </div>
 
     <div class="wednesday">
         Mercredi <br>
-        Date <br>
-        liste les évènements
+        <span class="orange">30/05</span> <br>
+        <Evenement/>
+        <Evenement/>
+        <Evenement/>
     </div>
 
     <div class="thursday">
         Jeudi <br>
-        Date <br>
-        liste les évènements
+        <span class="orange">30/05</span> <br>
+        <Evenement/>
+        <Evenement/>
     </div>
 
     <div class="friday">
         Vendredi <br>
-        Date <br>
-        liste les évènements
+        <span class="orange">30/05</span> <br>
+        <Evenement/>
+        <Evenement/>
+        <Evenement/>
+        <Evenement/>
     </div>
 
     <div class="saturday">
         Samedi <br>
-        Date <br>
-        liste les évènements
+        <span class="orange">30/05</span> <br>
+        <Evenement/>
     </div>
 
 
