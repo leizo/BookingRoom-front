@@ -14,18 +14,22 @@
             const week = useWeekStore();
             const reservationState = useReservationStore();
             const date = ref();
+            const startTimePicker = ref({minutes: 0});
+            const updateRoomAvailabilityOnDate = (date: string) => {
+                reservationState.room_availability = week.fetchRoomAvailability(date);
+            }
 
             return {
                 week,
                 reservationState,
-                date
+                date,
+                startTimePicker,
+                updateRoomAvailabilityOnDate
             }
-        },
-        mounted() {
-            
         },
         watch: {
             date(date) {
+                this.reservationState.selected_date = date;
                 this.reservationState.room_availability = this.week.fetchRoomAvailability(this.date);
             }
         },
@@ -33,6 +37,7 @@
             async onChange(event: any) {
                 await this.week.fetchEvents(event.target.value);
                 this.reservationState.room = event.target.value;
+                this.reservationState.room_availability = this.week.fetchRoomAvailability(this.date);
             }
         },
         components: {TheHeader, TheNavbar, ReservationRecap, Datepicker}
@@ -110,30 +115,35 @@
     <!-- Dans mon stage on utilisait des v-if pour choisir quel div afficher -->
     
     <div class="col-1">
-        <Datepicker v-model="date" dark @change="computeAvailability()"></Datepicker>
+        <Datepicker v-model="this.date" 
+        :enableTimePicker="false"
+        @update:modelValue="updateRoomAvailabilityOnDate"
+        dark placeholder="Date"></Datepicker>
 
         <div style="display:grid; grid-template-columns: fit-content fit-content; ">
-            <select name="Salle" style="font-size: 14px; ">
-                <option value="Salle">Début</option>
-                <option value="I1">L012</option>
-                <option value="I2">L220</option>
-                <option value="P1">L207</option>
-            </select>
-            <select name="Salle" style="font-size: 14px;">
-                <option value="Salle">Fin</option>
-                <option value="I1">L012</option>
-                <option value="I2">L220</option>
-                <option value="P1">L207</option>
-            </select>
+            <Datepicker v-model="this.reservationState.starting_date" 
+                minutesIncrement="15" 
+                minutesGridIncrement="15"
+                :startTime="startTimePicker"
+                timePicker dark
+                placeholder="Début">
+            </Datepicker>
+            <Datepicker v-model="this.reservationState.ending_date" 
+                minutesIncrement="15" 
+                minutesGridIncrement="15"
+                :startTime="startTimePicker"
+                timePicker dark
+                placeholder="Fin">
+            </Datepicker>
         </div>
 
-        <li v-show="this.reservationState.room !== ''"  v-for="slot in this.reservationState.room_availability" :key="slot">
+        <li v-show="this.reservationState.room !== '' && this.reservationState.room_availability.length > 1"  v-for="slot in this.reservationState.room_availability" :key="slot">
             {{slot.start}} -> {{slot.end}}
         </li>
         
     </div>
 
-    <div class="col-2">
+    <div class="col-2" v-if="this.reservationState.selected_date !== undefined">
         <ReservationRecap></ReservationRecap>
     </div>
 

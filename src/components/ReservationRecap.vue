@@ -1,5 +1,9 @@
 <script lang="ts">
 import { useReservationStore } from '@/stores/reservation.store'
+import axios from 'axios';
+import moment from 'moment';
+
+const LOCAL_REST_ENDPOINT = "http://localhost:8080"
 
 export default {
     name: "ReservationRecap",
@@ -7,6 +11,38 @@ export default {
         const reservationState = useReservationStore();
         return {
             reservationState
+        }
+    },
+    methods: {
+        async postEvent() {
+            console.log();
+            let res = await axios({
+                url: `${LOCAL_REST_ENDPOINT}/event/create`,
+                method: 'POST',
+                data: {
+                    starting_date: moment(this.reservationState.selected_date)
+                        .hour(this.reservationState.starting_date.hours)
+                        .minute(this.reservationState.starting_date.minutes)
+                        .format("YYYY-MM-DD HH:mm:ss"),
+                    ending_date: moment(this.reservationState.selected_date)
+                        .hour(this.reservationState.ending_date.hours)
+                        .minute(this.reservationState.ending_date.minutes)
+                        .format("YYYY-MM-DD HH:mm:ss"),
+                    roomLabel: this.reservationState.room,
+                    type: this.reservationState.reservation_type.toUpperCase(),
+                    name: "Reservation de salle BookingRoom",
+                    description: this.reservationState.event_description
+                }
+            })
+
+            if(res.status === 201) {
+                alert("Event created");
+            } else {
+                alert(res.status);
+            }
+        },
+        test() {
+            console.log(this.reservationState.event_description)
         }
     }
 }
@@ -18,8 +54,9 @@ export default {
         <h1 style="text-align: left">Date</h1>
         <h1 style="text-align: right">Salle</h1>
     </div>
-    <div class="orange">
-        HeureDébut - HeureFin
+    <div class="orange" v-if="this.reservationState.starting_date !== undefined && this.reservationState.ending_date  !== undefined">
+        {{this.reservationState.starting_date.hours}}h{{this.reservationState.starting_date.minutes !== 0 ? this.reservationState.starting_date.minutes : ''}}
+         - {{this.reservationState.ending_date.hours}}h{{this.reservationState.ending_date.minutes !== 0 ? this.reservationState.ending_date.minutes : ''}}
     </div>
     <br>
     <div>
@@ -47,20 +84,21 @@ export default {
         </button> <br>
     </div>
     <br>
-    <div>
-        Vous cherchez à réserver la salle <a class="orange">L012</a> <br> 
-        à <a class="orange">NDL</a> de <a class="orange">14h</a> à <a class="orange">15h</a> pour <a class="orange">une réunion assiociative </a>
+    <div v-if="this.reservationState.starting_date !== undefined && this.reservationState.ending_date  !== undefined">
+        Vous cherchez à réserver la salle <a class="orange">{{this.reservationState.room}}</a> <br> 
+        à <a class="orange">{{this.reservationState.campus}}</a> de <a class="orange">{{this.reservationState.starting_date.hours}}h{{this.reservationState.starting_date.minutes !== 0 ? this.reservationState.starting_date.minutes : ''}}</a>
+        à <a class="orange">{{this.reservationState.ending_date.hours}}h{{this.reservationState.ending_date.minutes !== 0 ? this.reservationState.ending_date.minutes : ''}}</a> pour <a class="orange">une réunion assiociative </a>
     </div>
     <br>
     <div style="background-color: var(--color-background-mute); padding:5px; border-radius:10px;">
         Réservation au nom de <a class ="orange">Garage</a>
     </div>
     <div>
-        <input type="textarea" style="width:100%" value="Veuillez renseigner la raison...">
+        <input type="textarea" style="width:100%" placeholder="Veuillez renseigner la raison..." v-model="this.reservationState.event_description" v-on:focusout="test">
     </div>
     <br>
     <div style="text-align: right;">
-        <button class="btn-send">Envoyer</button>
+        <button class="btn-send" @click="postEvent">Envoyer</button>
     </div>
     
     

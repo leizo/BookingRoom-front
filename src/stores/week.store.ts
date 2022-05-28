@@ -23,11 +23,17 @@ export const useWeekStore = defineStore({
                     starting_date: event.starting_date,
                     ending_date: event.ending_date,
                     name: event.eventTranslations
+                    .find(translation => translation.lang === "FR") !== undefined ?
+                    event.eventTranslations
                     .find(translation => translation.lang === "FR")
-                    .name,
+                    .name :
+                    "Event Custom",
                     description: event.eventTranslations
+                    .find(translation => translation.lang === "FR") !== undefined ?
+                    event.eventTranslations
                     .find(translation => translation.lang === "FR")
-                    .description,
+                    .description :
+                    "Description Event Custom",
                     type: event.type,
                 }
             })
