@@ -1,6 +1,7 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 import moment from "moment-timezone";
+import type { Event } from "@/stores/Interfaces/event";
 
 const LOCAL_REST_ENDPOINT = "http://localhost:8080";
 
@@ -67,16 +68,3 @@ export const useWeekStore = defineStore({
         }
     }
 })
-
-declare interface Event {
-    id: string,
-    name: string,
-    description: string,
-    starting_date: string,
-    ending_date: string,
-    type: string,
-    room: Array<any>,
-    eventTranslations: Array<any>,
-    reviews: Array<any>,
-    status: string
-}

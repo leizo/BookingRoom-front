@@ -10,7 +10,8 @@ export default {
     setup() {
         const reservationState = useReservationStore();
         return {
-            reservationState
+            reservationState,
+            moment
         }
     },
     methods: {
@@ -30,8 +31,14 @@ export default {
                         .format("YYYY-MM-DD HH:mm:ss"),
                     roomLabel: this.reservationState.room,
                     type: this.reservationState.reservation_type.toUpperCase(),
-                    name: "Reservation de salle BookingRoom",
-                    description: this.reservationState.event_description
+                    eventTranslations: [
+                        {
+                            name: "Reservation de salle BookingRoom",
+                            description: this.reservationState.event_description,
+                            lang: "FR"
+                        }
+                    ]
+                    
                 }
             })
 
@@ -51,8 +58,8 @@ export default {
 <template>
 <div class="component-size" >
     <div style="display: grid; grid-template-columns: auto auto; width:100%">
-        <h1 style="text-align: left">Date</h1>
-        <h1 style="text-align: right">Salle</h1>
+        <h1 style="text-align: left">{{moment(this.reservationState.selected_date).format("DD/MM/YYYY")}}</h1>
+        <h1 style="text-align: right">{{this.reservationState.room}}</h1>
     </div>
     <div class="orange" v-if="this.reservationState.starting_date !== undefined && this.reservationState.ending_date  !== undefined">
         {{this.reservationState.starting_date.hours}}h{{this.reservationState.starting_date.minutes !== 0 ? this.reservationState.starting_date.minutes : ''}}

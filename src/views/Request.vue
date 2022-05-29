@@ -2,9 +2,23 @@
     import TheHeader from "@/components/TheHeader.vue";
     import TheNavbar from '@/components/TheNavbar.vue';
     import RequestRecap from '@/components/RequestRecap.vue';
+    import { useRequestStore } from '@/stores/request.store';
 
     export default {
         name: "Request",
+        setup() {
+            const requestStore = useRequestStore();
+            console.log(requestStore.requests);
+            let showRequests = false;
+            return {
+                requestStore,
+                showRequests
+            }
+        },
+        async mounted() {
+            await this.requestStore.fetchRequests("IN_REVIEW");
+            this.showRequests = true;
+        },
         components: { TheHeader, TheNavbar, RequestRecap }
     }
 </script>
@@ -42,17 +56,8 @@
     </div>
     
     <div class="col-results">
-        <div>
-            <RequestRecap/>
-        </div>
-        <div>
-            <RequestRecap/>
-        </div>
-        <div>
-            <RequestRecap/>
-        </div>
-        <div>
-            <RequestRecap/>
+        <div v-for="request in this.requestStore.requests" :key="request">
+            <RequestRecap :request="request"/>
         </div>
     </div>
 </template>

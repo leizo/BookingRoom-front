@@ -1,49 +1,65 @@
 <script lang="ts">
 
+import moment from 'moment'
+import type { Event } from "@/stores/Interfaces/event";
+
 export default {
-  name: "RequestRecap",
+    name: "RequestRecap",
+    props: {
+        request: Object as () => Event
+    },
+    setup(props) {
+        const request = props.request;
+        let starting_hour = moment(request?.starting_date).format("HH:mm");
+        let ending_hour = moment(request?.ending_date).format("HH:mm");
+        let date = moment(request?.starting_date).format("DD MMMM YYYY")
+
+        return {
+            request,
+            starting_hour,
+            ending_hour,
+            date
+        }
+    }
+
 }
 </script>
 
 <template>
     <div class="block-request">
         <div style="display: grid; grid-template-columns: auto auto auto; width:100%">
-            <h1 style="text-align: left">Date</h1>
-            <h2 class="orange" style="text-align:center"> HeureDébut - HeureFin </h2>
-            <h1 style="text-align: right">Salle</h1>
+            <h1 style="text-align: left">{{date}}</h1>
+            <h2 class="orange" style="text-align:center"> {{starting_hour}} - {{ending_hour}} </h2>
+            <h1 style="text-align: right">{{this.request.roomLabel}}</h1>
         </div>
         
         <div>
             Type de réservation :
-            <!--
-                <button class="btn-reservation projet">Projet de groupe</button>
-            -->
 
-            <!--
-                <button class="btn-reservation evenement">Evenement associatif</button>
-            -->
-            <button class="btn-reservation reunion">Réunion associative</button>
+            <button v-if="this.request.type === 'GROUP_PROJECT'" class="btn-reservation projet">Projet de groupe</button>
+
+            <button v-else-if="this.request.type === 'ASSOCIATION_EVENT'" class="btn-reservation evenement">Evenement associatif</button>
+
+            <button v-else-if="this.request.type === 'ASSOCIATION_MEETING'" class="btn-reservation reunion">Réunion associative</button>
         </div>
         <div style="background-color: var(--color-background-mute); padding:5px; border-radius:10px;">
             Réservation au nom de <span class ="orange">Garage</span>
         </div>
         <div style="padding-top:5px">
-            <li>Leadingsquad avec Garage, <br> bla bla bla</li>
+            <li>{{this.request.eventTranslations[0].description}}</li>
         </div>
-        <!--
-        <div style="padding-top:5px">
+
+
+        <div style="padding-top:5px" v-if="request.status === 'IN_REVIEW'">
             <span class="validation">En cours de validation...</span>
             <button class="btn-state" style="float:right;">Annuler</button>
         </div>
-        -->
-        
-        <!--
-        <div>
-            <button class="btn-state">Rejeté...</button>
+
+        <div v-else-if="request.status === 'REJECTED'">
+            <button class="btn-state" >Rejeté...</button>
         </div>
-        -->
         
-        <div>
+        <div v-else-if="request.status === 'ACCEPTED'">
             <button class="btn-state" style="background-color: var(--br-positive)">Validé !</button>
         </div>
 
