@@ -35,7 +35,7 @@
         },
         methods: {
             async onChange(event: any) {
-                await this.week.fetchEvents(event.target.value);
+                await this.week.fetchEvents(event.target.value, this.date);
                 this.reservationState.room = event.target.value;
                 this.reservationState.room_availability = this.week.fetchRoomAvailability(this.date);
             }
@@ -67,7 +67,7 @@
             <select name="Salle" @change="onChange($event)" v-model="this.reservationState.room">
             <option disabled value="" >Salle</option>
             <option v-for="room in Object.keys(this.reservationState.getRooms)" :key=room> {{room}} </option>
-        </select>
+            </select>
         </div>
         <div>
             <button class="week">Date</button>

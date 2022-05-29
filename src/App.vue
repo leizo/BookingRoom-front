@@ -23,7 +23,7 @@ import { computed, onMounted, onUnmounted, ref } from "vue"
       }
     },
     mounted() {
-      console.log("test");
+      this.userStore.isLoggedIn();
     },
     components: {
       TheHeader,

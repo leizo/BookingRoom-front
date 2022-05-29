@@ -11,12 +11,12 @@ export const useWeekStore = defineStore({
         events: Array<Event>()
     }),
     actions: {
-        async fetchEvents(roomLabel: string) {
+        async fetchEvents(roomLabel: string, week_start: string) {
             
             let res = await axios.get(`${LOCAL_REST_ENDPOINT}/calendar/week/${roomLabel}`, 
             {
                 params: {
-                    week_start: "2022-05-23T00:00:00"
+                    week_start: week_start
                 }
             })
             this.events = res.data.map((event: Event) => {

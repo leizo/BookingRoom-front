@@ -6,13 +6,14 @@ import moment from "moment";
 export const useReservationStore = defineStore({
     id: "reservation",
     state: () => ({
-        room: "",
+        room: "L012",
         campus: "NDL",
         mode: undefined,
         reservation_type: "",
         starting_date: {} as {hours: number, minutes: number, seconds: number},
         ending_date: {} as {hours: number, minutes: number, seconds: number},
         selected_date: undefined,
+        selected_week: [],
         room_availability: [] as {start: string, end: string}[],
         event_description: ""
     }),

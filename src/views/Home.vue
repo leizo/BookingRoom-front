@@ -4,94 +4,127 @@
     import { useWeekStore } from '@/stores/week.store';
     import { useReservationStore } from '@/stores/reservation.store';
     import Evenement from '../components/Evenement.vue';
+    import Datepicker from '@vuepic/vue-datepicker';
+    import { onMounted, ref } from 'vue';
+    import moment from 'moment';
     
 
     export default {
         name: "Home",
         setup() {
-            const week = useWeekStore();
+            const weekStore = useWeekStore();
             const reservationState = useReservationStore();
+
+            const week = ref([new Date()]);        
+            weekStore.fetchEvents(reservationState.room, moment().format('yyyy-MM-DDTHH:mm:ss'));
+
             return {
+                weekStore,
                 week,
-                reservationState
+                reservationState,
+                moment
             }
         },
-        components: { TheHeader, TheNavbar, Evenement }
+        methods: {
+            async onChange(event: any) {
+                await this.weekStore.fetchEvents(event.target.value, moment(this.week[0]).format('yyyy-MM-DDTHH:mm:ss'));
+                this.reservationState.room = event.target.value;
+                this.reservationState.room_availability = this.weekStore.fetchRoomAvailability(moment(this.week[0]).format('yyyy-MM-DDTHH:mm:ss'));
+            }
+        },
+        components: { TheHeader, TheNavbar, Evenement, Datepicker }
     }
 </script>
 
 <template>
-<div class="wrapper-btn" 
-style="grid-template-columns: max-content auto auto; grid-template-rows: auto;">
-        <div class="btn-group">
-            <button class="btn-campus">NDL</button>
-            <button class="btn-campus">NDC</button>
+<div class="wrapper-btn">
+        <div class="btn-group" style="margin: auto">
+            <button  class="btn-campus"
+            @click="this.reservationState.campus = 'NDL'"
+            :class="{active: this.reservationState.campus === 'NDL'}">
+                NDL
+            </button>
+            <button class="btn-campus"
+            @click="this.reservationState.campus = 'NDC'"
+            :class="{active: this.reservationState.campus === 'NDC'}">
+                NDC
+            </button>
         </div>
         <div class="search">
             <span style="color:var(--br-positive); font-size:12px">Disponible <br></span> 
             <!--<span style="color:var(--br-negative); font-size:12px">Indisponible<br></span>-->
             {{this.reservationState.room}}
         </div>
+        <div style="margin: auto">
+            <select name="Salle" @change="onChange($event)" v-model="this.reservationState.room">
+            <option disabled value="" >Salle</option>
+            <option v-for="room in Object.keys(this.reservationState.getRooms)" :key=room> {{room}} </option>
+        </select>
+        </div>
 
-        <div class="home-request">
-            <div class="btn-home-nav"> &lsaquo; </div>
-            <div class="btn-home-results"> Semaine </div>
-            <div class="btn-home-nav"> &rsaquo; </div>
+        <div  style="margin: auto">
+            <Datepicker
+            class="btn-home-results"
+            v-model="this.week"
+            style="--dp-background-color: #292E56"
+            @update:modelValue="weekStore.fetchEvents(this.reservationState.room, moment(this.week[0]).format('yyyy-MM-DDTHH:mm:ss'))"
+            weekPicker dark></Datepicker>
         </div>
     </div>
 
+    <!-- TODO Boucle for en itérant  -->
+
     <div class="monday">
         Lundi <br>
-        <span class="orange">30/05</span> <br>
-        <Evenement/>
-        <Evenement/>
-        <Evenement/>
-        <li v-for="event in this.week.events" :key="event.name">
-            {{event.name}}
-        </li>
+        <span class="orange">{{moment(this.week[0]).format("DD/MM")}}</span> <br>
+        <Evenement v-for="event in this.weekStore.events.filter(event => moment(event.starting_date).isSame(moment(this.week[0]), 'day'))"
+            :key="event" :event="event" />
     </div>
 
     <div class="tuesday">
         Mardi <br>
-        <span class="orange">30/05</span> <br>
-        <Evenement/>
-        <Evenement/>
+        <span class="orange">{{moment(this.week[0]).add(1, 'day').format("DD/MM")}}</span> <br>
+        <Evenement v-for="event in this.weekStore.events.filter(event => moment(event.starting_date).isSame(moment(this.week[0]).add(1, 'day'), 'day'))"
+            :key="event" :event="event" />
     </div>
 
     <div class="wednesday">
         Mercredi <br>
-        <span class="orange">30/05</span> <br>
-        <Evenement/>
-        <Evenement/>
-        <Evenement/>
+        <span class="orange">{{moment(this.week[0]).add(2, 'day').format("DD/MM")}}</span> <br>
+        <Evenement v-for="event in this.weekStore.events.filter(event => moment(event.starting_date).isSame(moment(this.week[0]).add(2, 'day'), 'day'))"
+            :key="event" :event="event" />
     </div>
 
     <div class="thursday">
         Jeudi <br>
-        <span class="orange">30/05</span> <br>
-        <Evenement/>
-        <Evenement/>
+        <span class="orange">{{moment(this.week[0]).add(3, 'day').format("DD/MM")}}</span> <br>
+        <Evenement v-for="event in this.weekStore.events.filter(event => moment(event.starting_date).isSame(moment(this.week[0]).add(3, 'day'), 'day'))"
+            :key="event" :event="event" />
     </div>
 
     <div class="friday">
         Vendredi <br>
-        <span class="orange">30/05</span> <br>
-        <Evenement/>
-        <Evenement/>
-        <Evenement/>
-        <Evenement/>
+        <span class="orange">{{moment(this.week[0]).add(4, 'day').format("DD/MM")}}</span> <br>
+        <Evenement v-for="event in this.weekStore.events.filter(event => moment(event.starting_date).isSame(moment(this.week[0]).add(4, 'day'), 'day'))"
+            :key="event" :event="event" />
     </div>
 
     <div class="saturday">
         Samedi <br>
-        <span class="orange">30/05</span> <br>
-        <Evenement/>
+        <span class="orange">{{moment(this.week[0]).add(5, 'day').format("DD/MM")}}</span> <br>
+        <Evenement v-for="event in this.weekStore.events.filter(event => moment(event.starting_date).isSame(moment(this.week[0]).add(5, 'day'), 'day'))"
+            :key="event" :event="event" />
     </div>
 
 
 </template>
 
 <style >
+.wrapper {
+    grid-auto-columns: auto 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: none
+}
+
 .monday{
     grid-row-start: 3;
     grid-column-start: 2;
@@ -188,11 +221,8 @@ style="grid-template-columns: max-content auto auto; grid-template-rows: auto;">
 }
 
 .btn-home-results {
-    padding:5px;
     text-align: center;
-    background-color: var(--color-background-soft);
-    border-radius: 10px;
-    margin: 0 5px;;
+    margin: 0 5px;
 }
 
 @media (max-width:1150px) {
