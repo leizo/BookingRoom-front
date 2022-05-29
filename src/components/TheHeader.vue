@@ -14,7 +14,6 @@ export default {
       <a @click="redirectToHome">Booking</a>
       <a class="orange" @click="redirectToHome">Room</a>
     </div>  
-
 </template>
 
 <style scoped>
@@ -28,14 +27,6 @@ div{
 
   font-weight: 600;
   font-size: 25px;
-}
-
-.orange {
-  color: var(--br-orange);
-}
-
-a {
-  cursor: pointer;
 }
 
 </style>

@@ -21,17 +21,22 @@
 </script>
 
 <template>
-<div class="wrapper-btn">
+<div class="wrapper-btn" 
+style="grid-template-columns: max-content auto auto; grid-template-rows: auto;">
         <div class="btn-group">
             <button class="btn-campus">NDL</button>
             <button class="btn-campus">NDC</button>
         </div>
         <div class="search">
+            <span style="color:var(--br-positive); font-size:12px">Disponible <br></span> 
+            <!--<span style="color:var(--br-negative); font-size:12px">Indisponible<br></span>-->
             {{this.reservationState.room}}
         </div>
 
-        <div>
-            <button>Semaine</button>
+        <div class="home-request">
+            <div class="btn-home-nav"> &lsaquo; </div>
+            <div class="btn-home-results"> Semaine </div>
+            <div class="btn-home-nav"> &rsaquo; </div>
         </div>
     </div>
 
@@ -163,5 +168,162 @@
     border-radius: 10px;
 
     padding: 20px;
+}
+
+.home-request{
+    display: grid;
+    grid-template-columns: min-content auto min-content;
+
+    align-items: center;
+    
+    margin-top: 0px;
+}
+
+.btn-home-nav {
+    padding:5px 5px;
+    color: var(--br-orange);
+    background-color: var(--color-background-soft);
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.btn-home-results {
+    padding:5px;
+    text-align: center;
+    background-color: var(--color-background-soft);
+    border-radius: 10px;
+    margin: 0 5px;;
+}
+
+@media (max-width:1150px) {
+
+  .monday{
+    grid-row-start: 3;
+    grid-column-start: 2;
+
+    grid-row-end: 4;
+    grid-column-end: 8;
+}
+
+.tuesday{
+    grid-row-start: 4;
+    grid-column-start: 2;
+
+    grid-row-end: 5;
+    grid-column-end: 8;
+}
+
+.wednesday{
+    grid-row-start: 5;
+    grid-column-start: 2;
+
+    grid-row-end: 6;
+    grid-column-end: 8;
+}
+
+.thursday{
+    grid-row-start: 6;
+    grid-column-start: 2;
+
+    grid-row-end: 7;
+    grid-column-end: 8;
+}
+
+.friday{
+    grid-row-start: 7;
+    grid-column-start: 2;
+
+    grid-row-end: 8;
+    grid-column-end: 8;
+}
+
+.saturday{
+    grid-row-start: 8;
+    grid-column-start: 2;
+
+    grid-row-end: 9;
+    grid-column-end: 8;
+}
+}
+
+@media (max-width:810px) {
+     .monday{
+        grid-row-start: 4;
+        grid-column-start: 1;
+
+        grid-row-end: 5;
+        grid-column-end: 6;
+    }
+
+    .tuesday{
+        grid-row-start: 5;
+        grid-column-start: 1;
+
+        grid-row-end: 6;
+        grid-column-end: 6;
+    }
+
+    .wednesday{
+        grid-row-start: 6;
+        grid-column-start: 1;
+
+        grid-row-end: 7;
+        grid-column-end: 6;
+    }
+
+    .thursday{
+        grid-row-start: 7;
+        grid-column-start: 1;
+
+        grid-row-end: 8;
+        grid-column-end: 6;
+    }
+
+    .friday{
+        grid-row-start: 8;
+        grid-column-start: 1;
+
+        grid-row-end: 9;
+        grid-column-end: 6;
+    }
+
+    .saturday{
+        grid-row-start: 9;
+        grid-column-start: 1;
+
+        grid-row-end: 10;
+        grid-column-end: 6;
+    }
+
+    .week {
+        font-size: 14px;
+        padding: 5px 20px;
+    }
+
+
+    .home-request{
+        display: grid;
+        grid-template-columns: min-content auto min-content;
+
+        align-items: center;
+        
+        margin-top: 0px;
+    }
+
+    .btn-home-nav {
+        padding:5px 5px;
+        color: var(--br-orange);
+        background-color: var(--color-background-soft);
+        border-radius: 10px;
+        font-weight: 700;
+    }
+
+    .btn-home-results {
+        padding:5px;
+        text-align: center;
+        background-color: var(--color-background-soft);
+        border-radius: 10px;
+        margin: 0 5px;;
+    }
 }
 </style>

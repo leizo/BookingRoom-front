@@ -63,14 +63,14 @@
         <div class="search">
             Vous cherchez à réserver la salle <span class="orange">{{ this.reservationState.room }} </span> à <span class="orange">{{ this.reservationState.campus }}</span>
         </div>
-        <div>
+        <div >
             <select name="Salle" @change="onChange($event)" v-model="this.reservationState.room">
             <option disabled value="" >Salle</option>
             <option v-for="room in Object.keys(this.reservationState.getRooms)" :key=room> {{room}} </option>
         </select>
         </div>
         <div>
-            <button>Date</button>
+            <button class="week">Date</button>
         </div>
     </div>
     <!--
@@ -211,6 +211,56 @@ li {
     padding:5px; 
     border-radius:10px;
     list-style: none;
+}
+
+@media (max-width:1150px) {
+    .col-1 {
+        grid-row-start: 3;
+        grid-column-start: 2;
+
+        grid-row-end: 11;
+        grid-column-end: 7;
+    }
+
+    .col-2 {
+        grid-row-start: 3;
+        grid-column-start: 7;
+
+        grid-row-end: 11;
+        grid-column-end: 8;
+    }
+}
+
+@media (max-width:810px) {
+    .col-1 {
+        grid-row-start: 4;
+        grid-column-start: 1;
+
+        grid-row-end: 5;
+        grid-column-end: 6;
+
+        background-color: var(--color-background-soft);
+        border-radius: 10px;
+
+        padding: 10px 20px;
+    }
+
+    .col-2 {
+        grid-row-start: 5;
+        grid-column-start: 1;
+
+        grid-row-end: 6;
+        grid-column-end: 6;
+
+        background-color: var(--color-background-soft);
+        border-radius: 10px;
+
+        padding: 10px 20px;
+    }
+
+    .search {
+        font-size: 12px;
+    }
 }
 
 

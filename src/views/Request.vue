@@ -113,4 +113,31 @@
 
 }
 
+@media (max-width:810px) {
+    .col-search {
+        grid-row-start: 3;
+        grid-column-start: 1;
+
+        grid-row-end: 4;
+        grid-column-end: 6;
+    }
+
+    .col-results {
+    grid-row-start: 4;
+    grid-column-start: 1;
+
+    grid-row-end: 5;
+    grid-column-end: 6;
+
+    gap: 20px;
+
+    margin-top: 20px;
+
+    display: grid;
+    grid-template-rows: auto  auto ;
+    grid-template-columns:auto ;
+
+}
+}
+
 </style>

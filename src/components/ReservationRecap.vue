@@ -49,7 +49,7 @@ export default {
 </script>
 
 <template>
-<div style="width:350px">
+<div class="component-size" >
     <div style="display: grid; grid-template-columns: auto auto; width:100%">
         <h1 style="text-align: left">Date</h1>
         <h1 style="text-align: right">Salle</h1>
@@ -145,6 +145,16 @@ button.evenement:hover, button.evenement.active {
 
 .btn-send {
     background-color: var(--br-orange);
+}
+
+.component-size {
+    width:350px
+}
+
+@media (max-width:810px) {
+    .component-size {
+        width:300px;
+    }
 }
 
 </style>

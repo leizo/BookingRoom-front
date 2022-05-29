@@ -62,17 +62,6 @@
 </template>
 
 <style>
-    a:link {
-        color : var(--br-orange);
-    }
-
-    a:visited {
-        color : var(--br-orange);
-    }
-
-    a:hover {
-        color : var(--br-text-light-1);
-    }
 
     #login {
     grid-row-start: 4;
@@ -112,18 +101,14 @@
     padding: 0px 10px;
     }
 
-    .btn-orange {
-    background-color: var(--br-orange);
-    border-radius: 20px;
-    border-style: none;
-    padding: 10px 20px;
+    @media (max-width:810px) {
+        #login {
+            grid-row-start: 3;
+            grid-column-start: 1;
 
-    color: var(--br-text-light-1);
-    font-family: Montserrat,sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-
-    margin-top: 30px;
+            grid-row-end: 4;
+            grid-column-end: 6;
+        }
     }
 
 </style>

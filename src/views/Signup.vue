@@ -143,4 +143,14 @@ import { useUserStore } from '@/stores/user.store';
     margin-top: 30px;
     }
 
+    @media (max-width:810px) {
+        #signup {
+            grid-row-start: 3;
+            grid-column-start: 1;
+
+            grid-row-end: 4;
+            grid-column-end: 6;
+        }
+    }
+
 </style>
